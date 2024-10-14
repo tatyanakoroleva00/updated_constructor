@@ -1,3 +1,12 @@
+.table-names-block {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 0.5rem; 
+    font-weight: bold;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
 .correct-words-form {
     display: flex;
     flex-direction: column;

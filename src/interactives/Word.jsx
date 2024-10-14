@@ -1,8 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import styles from "../css/CorrectWordsChoice.module.css";
-export default function Word ({order, getWordData, serverDataGot, serverData, interactiveIndex, wordIndex}) {
+export default function Word ({order, index, getWordData, serverDataGot, serverData, interactiveIndex, wordIndex}) {
   const [word, setWord] = useState({
+    'id': '',
     'word_name': '',
     'status': 'no',
   });
@@ -34,7 +35,9 @@ export default function Word ({order, getWordData, serverDataGot, serverData, in
   return (
     <div className={styles["word-container"]}>
       <div className={styles['word-field']}>
-        <span>{order}.&nbsp;</span>
+
+
+        <span>{index + 1}.&nbsp;</span>
         <input className={styles.word} name="word_name" value={word['word_name']} type="text" onChange={inputChangeHandler} />
         {/* {serverDataGot && <input className={styles.word} name="word_name" defaultValue={word['word_name']} type="text" onChange={inputChangeHandler} />} */}
       </div>

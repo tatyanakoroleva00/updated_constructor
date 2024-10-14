@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 import styles from '../css/CorrectWordsChoice.module.css';
 import Word from "./Word";
 
-export default function CorrectWordsChoice({ receivedInfo, updateInteractive, interactive}) {
-  const [data, setData] = useState({ task: receivedInfo.task, });
-  const [wordsArr, setWordsArr] = useState([]);
+export default function CorrectWordsChoice({ receivedInfo, updateInteractive, interactive }) {
+  const [data, setData] = useState({ task: receivedInfo.task, words: receivedInfo.words });
+  const [words, setWords] = useState([]);
+
+  console.log(words, 'words');
 
   // useEffect(() => {
   //   getData(data);
@@ -29,25 +31,34 @@ export default function CorrectWordsChoice({ receivedInfo, updateInteractive, in
   const changeHandler = (event) => { //Меняем инфу в инпуте
     const { name, value } = event.target;
     setData((prev) => ({ ...prev, [name]: value }));
-    updateInteractive({...interactive, receivedInfo : data});
+    updateInteractive({ ...interactive, receivedInfo: data });
   };
 
-  const addWordHandler = () => {
-    setWordsArr((prev) => [...prev, 1]);
+  const addNewWord = () => {
+
+    const newWord = {
+      id: Date.now(),
+      word_name: '',
+      status: '',
+    };
+
+    setWords(prev => [...prev, newWord]);
   };
 
   const deleteWordHandler = () => {
-    let lastWordKey = wordsArr.length; //Удаляем последний введенный вопрос с ответами из массива данных
-    let lastWord = 'word' + lastWordKey;
-    delete data[lastWord];
+    // let lastWordKey = words.length; //Удаляем последний введенный вопрос с ответами из массива данных
+    // let lastWord = 'word' + lastWordKey;
+    // delete data[lastWord];
+    words.pop();
+    setWords(words);
 
-    setWordsArr(wordsArr.slice(0, -1));
+    // setWords(words.slice(0, -1));
   }
 
-  const wordsDataHandler = (order, wordLine) => {
-    let word = `word${order}`;
-    setData(prev => ({ ...prev, [word]: wordLine }));
-  };
+  // const wordsDataHandler = (order, wordLine) => {
+  //   let word = `word${order}`;
+  //   setData(prev => ({ ...prev, [word]: wordLine }));
+  // };
 
   return (
     <div className={styles["correct-words-form"]}>
@@ -65,17 +76,21 @@ export default function CorrectWordsChoice({ receivedInfo, updateInteractive, in
 
 
       <section className={styles["words-wrapper"]}>
-        <p>Слова: </p>
-        <div className={styles["words-field"]}>
-          {wordsArr.map((word, index) => (
-            <div key={word + index}>
-              <Word wordIndex={index} order={index + 1} getWordData={wordsDataHandler} interactiveIndex={interactiveIndex} serverData={serverData} serverDataGot={serverDataGot} />
-            </div>
-          ))}
 
+      {words.length > 0 && (<div className={styles['table-names-block']}>
+          <div>Слова: </div>
+          <div>Правильность слова: </div>
+        </div>)}
+        <div className={styles["words-field"]}>
+
+
+
+          {words.map((word, index) =>
+            <Word key={word.id} index={index} />
+          )}
           <div className={styles.buttons}>
-            <button className={styles["add-button"]} onClick={addWordHandler}>Добавить слово</button>
-            {wordsArr.length > 0 && <button className={styles["remove-button"]} onClick={deleteWordHandler}>Удалить слово</button>}
+            <button className={styles["add-button"]} onClick={addNewWord}>Добавить слово</button>
+            {words.length > 0 && <button className={styles["remove-button"]} onClick={deleteWordHandler}>Удалить слово</button>}
           </div>
 
         </div>

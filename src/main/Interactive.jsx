@@ -29,7 +29,6 @@ const Interactive = ({ updateInteractive, deleteInteractive, interactive,  video
   return (
     <div className={`${currentInteractive !== interactive && styles['invisible']}`}>
       <div><b>Интерактив: {interactive['interactive_name']}</b></div>
-      <button className={styles['delete-button']} onClick={() => deleteInteractive(interactive.id)}>Удалить интерактив</button>
       <section>
         <div className={styles.block}>
         <label>Тип интерактива: &nbsp;</label>
@@ -61,6 +60,7 @@ const Interactive = ({ updateInteractive, deleteInteractive, interactive,  video
         {!timeError && interactive['interactive_type'] === 'externalSourceLink' &&
           <ExternalSourceLink receivedInfo={interactive['receivedInfo']} interactive={interactive} updateInteractive={updateInteractive} />}
       </section>
+      <button className={styles['delete-button']} onClick={() => deleteInteractive(interactive.id)}>Удалить интерактив</button>
     </div>
   )
 }
