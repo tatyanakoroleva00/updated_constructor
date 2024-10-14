@@ -5,28 +5,8 @@ import Word from "./Word";
 
 export default function CorrectWordsChoice({ receivedInfo, updateInteractive, interactive }) {
   const [data, setData] = useState({ task: receivedInfo.task, words: receivedInfo.words });
+  const [currentWord, setCurrentWord] = useState(null);
   const [words, setWords] = useState([]);
-
-  console.log(words, 'words');
-
-  // useEffect(() => {
-  //   getData(data);
-  // }, [data])
-
-  // useEffect(() => {
-  //   if(serverDataGot && serverData['interactives'][interactiveIndex]) {
-  //     let serverDataReceived = serverData['interactives'][interactiveIndex]['data']['receivedInfo'];
-  //   setData(serverDataReceived);
-
-  //   let elemArr = [];
-  //     for (let key in serverDataReceived) {
-  //       if(key.includes('word')) {
-  //         elemArr.push(key);
-  //       }
-  //     }
-  //     setWordsArr(elemArr);
-
-  // }}, [])
 
   const changeHandler = (event) => { //Меняем инфу в инпуте
     const { name, value } = event.target;
@@ -45,20 +25,27 @@ export default function CorrectWordsChoice({ receivedInfo, updateInteractive, in
     setWords(prev => [...prev, newWord]);
   };
 
-  const deleteWordHandler = () => {
-    // let lastWordKey = words.length; //Удаляем последний введенный вопрос с ответами из массива данных
-    // let lastWord = 'word' + lastWordKey;
-    // delete data[lastWord];
-    words.pop();
-    setWords(words);
+  const deleteWord = (id) => {
+    const newWord = words.filter(i => i.id !== id);
+    setWords(() => newWord);
+    setCurrentWord(newWord[0] ?? null);    
+  };
 
-    // setWords(words.slice(0, -1));
-  }
+  const updateWord = (newObject) => {
 
-  // const wordsDataHandler = (order, wordLine) => {
-  //   let word = `word${order}`;
-  //   setData(prev => ({ ...prev, [word]: wordLine }));
-  // };
+    setCurrentWord(newObject);
+    setWords((prevData) => {
+      const index = prevData.findIndex(item => item.id === newObject.id);
+
+      if (index !== -1) {
+          // Если объект с таким id существует, заменяем его
+          return prevData.map((item, idx) => idx === index ? newObject : item);
+      } else {
+          // Если объект с таким id не найден, добавляем новый
+          return [...prevData, newObject];
+      }
+  });
+  };
 
   return (
     <div className={styles["correct-words-form"]}>
@@ -86,11 +73,10 @@ export default function CorrectWordsChoice({ receivedInfo, updateInteractive, in
 
 
           {words.map((word, index) =>
-            <Word key={word.id} index={index} />
+            <Word key={word.id} order={index} word={word} updateWord={updateWord} deleteWord={deleteWord}/>
           )}
           <div className={styles.buttons}>
             <button className={styles["add-button"]} onClick={addNewWord}>Добавить слово</button>
-            {words.length > 0 && <button className={styles["remove-button"]} onClick={deleteWordHandler}>Удалить слово</button>}
           </div>
 
         </div>

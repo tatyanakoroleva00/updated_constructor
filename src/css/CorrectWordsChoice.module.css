@@ -41,3 +41,7 @@
     align-items: center;
     justify-content: center;
 }
+.delete-btn {
+    width: 20px;
+    padding: 0;
+}
