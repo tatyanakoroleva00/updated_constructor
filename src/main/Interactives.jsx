@@ -18,12 +18,14 @@ const Interactives = ({interactives, setInteractives}) => {
             receivedInfo: {},
         };
         setInteractives(prev => [...prev, interactive]);
+        setCurrentInteractive(interactive);
 
         if (currentInteractive === null)
             setCurrentInteractive(interactive);
 
         setIsModalOpen(false);
     }
+    console.log(currentInteractive, 'curInter');
     const deleteInteractive = (id) => {
         const newInteractive = interactives.filter(i => i.id !== id);
         setInteractives(() => newInteractive);

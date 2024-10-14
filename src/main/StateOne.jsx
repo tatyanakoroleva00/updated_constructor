@@ -102,7 +102,7 @@ const StateOne = ({ setServerDataGot, setSwitchStates, setGlobalData, setPlayBtn
       {courses.length !== 0 && <div className={styles['courses-table']}>
         <>
           {courses.map((elem, index) => (
-            <div>
+            <div key={index + elem}>
               <div key={index + elem} className={styles['table-line']}>
                 <span>{elem['video_course_name']}</span>
                 <div className={styles['btns-row']}>
