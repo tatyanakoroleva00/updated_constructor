@@ -1,0 +1,28 @@
+.invisible {
+    display: none;
+}
+.block {
+    margin-bottom: 1rem;
+}
+select {
+    padding: 0.5rem;
+}
+.input-error input {
+    background-color: rgba(255, 0, 0, 0.411);
+}
+input {
+    padding: 0.5rem;
+}
+.delete-button {
+    color: white;
+    border: 1px solid  rgb(224, 35, 76);
+    background-color: rgb(224, 35, 76);
+    padding-right: 1rem;
+    padding-left: 1rem;
+    opacity: 0.9;
+    font-weight: bold;
+    border: 1px solid black;
+}
+.delete-button:hover {
+    opacity: 1;
+}

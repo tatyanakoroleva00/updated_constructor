@@ -1,6 +1,6 @@
 .buttons-row {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
 }
 .courses-btn {
     background-color: rgb(255, 255, 255);

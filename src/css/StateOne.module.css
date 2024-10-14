@@ -18,6 +18,13 @@
     display: flex;
     gap: 1rem;
 }
+.buttons-row {
+    display: flex;
+    justify-content: space-between;
+}
+.hidden {
+    display: none;
+}
 .edit-btn {
     background-color: rgb(0, 139, 139);
 }

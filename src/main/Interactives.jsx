@@ -1,41 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Interactive from './Interactive';
 import Modal_Interactives from '../modal_windows/Modal_Interactives';
+import styles from '../css/Buttons.module.css';
 
-const Interactives = () => {
+const Interactives = ({interactives, setInteractives}) => {
     const [currentInteractive, setCurrentInteractive] = useState(null);
-    const [interactives, setInteractives] = useState([]);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [videoDuration, setVideoDuration] = useState(120); //Временное значение для видео
 
-    const addNewInteractive = () => {
-        openModal();
-    };
+    const addNewInteractive = (interactiveName) => {
 
-    const openModal = () => {
-        setIsModalOpen(true);
-      };
-      const closeModal = () => {
-        setIsModalOpen(false);
-      };
-
-    const confirmModal = (interactiveName) => {
-        
         const interactive = {
             id: Date.now(),
-            interactive_name: '',
+            interactive_name: interactiveName,
             interactive_type: '',
             time_code: '',
+            receivedInfo: {},
         };
-
         setInteractives(prev => [...prev, interactive]);
 
-        if(currentInteractive === null)
+        if (currentInteractive === null)
             setCurrentInteractive(interactive);
 
-
-        // setIsModalOpen(false);
-    }    
+        setIsModalOpen(false);
+    }
     const deleteInteractive = (id) => {
         const newInteractive = interactives.filter(i => i.id !== id);
         setInteractives(() => newInteractive);
@@ -58,24 +46,24 @@ const Interactives = () => {
         });
     };
 
-    console.log('interactives', interactives);
     return (
         <div>
             <div>
                 <div>
-                    <button onClick={addNewInteractive}>Add Interactive</button>
-                    <Modal_Interactives isOpen={isModalOpen} onClose={closeModal} onConfirm={confirmModal} header="Добавить новый интерактив" message="Вы создаете новый интерактив. Несохраненные данные будут потеряны" answer1="Подтвердить" answer2="Сбросить" />
+                    <button className={styles['add-button']} onClick={() => setIsModalOpen(true)}>Добавить интерактив</button>
+                    <Modal_Interactives isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={addNewInteractive} header="Добавить новый интерактив" message="Вы создаете новый интерактив. Несохраненные данные будут потеряны" answer1="Подтвердить" answer2="Сбросить" />
                 </div>
 
-                <div>
+                <div className={styles['buttons-row']}>
                     {interactives.map((interactive) =>
-                        <button key={interactive.id} onClick={() => setCurrentInteractive(interactive)}>Button {interactive['interactive_name']}</button>
+                        <button className={`${currentInteractive === interactive ? styles['active-btn'] : styles['courses-btn']}`} key={interactive.id} onClick={() => setCurrentInteractive(interactive)}>{interactive['interactive_name']}</button>
                     )}
                 </div>
             </div>
-
             <div>
-                {currentInteractive && <Interactive updateInteractive={updateInteractive} deleteInteractive={deleteInteractive} interactive={currentInteractive} videoDuration={videoDuration} />}
+                {interactives.map(interactive =>
+                    <Interactive key={interactive.id} interactive={interactive} currentInteractive={currentInteractive} updateInteractive={updateInteractive} deleteInteractive={deleteInteractive} />
+                )}
             </div>
         </div>
     )
