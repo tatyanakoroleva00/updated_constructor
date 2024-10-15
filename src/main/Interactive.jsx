@@ -4,7 +4,7 @@ import CorrectWordsChoice from '../interactives/CorrectWordsChoice';
 import ExternalSourceLink from '../interactives/ExternalSourceLink';
 import styles from "../css/Interactive.module.css";
 
-const Interactive = ({ updateInteractive, deleteInteractive, interactive,  videoDuration, currentInteractive}) => {
+const Interactive = ({ updateInteractive, deleteInteractive, interactive,  videoDuration, currentInteractive, error, setError}) => {
   const [timeError, setTimeError] = useState(false);
 
   const changeHandler = (event) => {

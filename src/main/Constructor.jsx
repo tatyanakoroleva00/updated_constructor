@@ -16,7 +16,6 @@ const Constructor = ({playBtnIsClicked, setPlayBtnIsClicked, setVideoCourseId}) 
   const [serverDataGot, setServerDataGot] = useState(false);
   const [interactives, setInteractives] = useState([]);
 
-  console.log(interactives, 'interactives');
   return (
     <div className={styles["constructor-wrapper"]}>
       <div className={`${switchStates && styles.invisible}`}>

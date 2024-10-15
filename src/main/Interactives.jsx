@@ -24,13 +24,12 @@ const Interactives = ({interactives, setInteractives}) => {
             setCurrentInteractive(interactive);
 
         setIsModalOpen(false);
-    }
-    console.log(currentInteractive, 'curInter');
+    };
     const deleteInteractive = (id) => {
         const newInteractive = interactives.filter(i => i.id !== id);
         setInteractives(() => newInteractive);
         setCurrentInteractive(newInteractive[0] ?? null);
-    }
+    };
 
     const updateInteractive = (newObject) => {
 
@@ -64,7 +63,7 @@ const Interactives = ({interactives, setInteractives}) => {
             </div>
             <div>
                 {interactives.map(interactive =>
-                    <Interactive key={interactive.id} interactive={interactive} currentInteractive={currentInteractive} updateInteractive={updateInteractive} deleteInteractive={deleteInteractive} />
+                    <Interactive key={interactive.id} interactive={interactive} currentInteractive={currentInteractive} updateInteractive={updateInteractive} deleteInteractive={deleteInteractive}/>
                 )}
             </div>
         </div>

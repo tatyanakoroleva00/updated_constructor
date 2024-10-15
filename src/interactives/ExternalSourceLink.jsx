@@ -10,8 +10,9 @@ const [data, setData] = useState({
 
 const changeHandler = (event) => {
   const {name, value} = event.target;
+  let newData = {...data, name : value};
+    updateInteractive({...interactive, receivedInfo : newData});
     setData(prev => ({...prev, [name] : value }));
-    updateInteractive({...interactive, receivedInfo : data});
   };
 
   return (

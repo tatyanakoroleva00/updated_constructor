@@ -31,7 +31,10 @@ const StateTwo = ({ globalData, serverDataGot, setGlobalData, interactives, setI
       <div className={styles['buttons-row']}>
       <button onClick={() => setInitialForm(!initialForm)}>{initialForm ? 'Вперед' : 'Назад'}</button>
       {!initialForm && <FinishCourse serverDataGot={serverDataGot} globalData={globalData} interactives={interactives} setFinishBtnClicked={setFinishBtnClicked} />
-      } </div>
+      } 
+      </div>
+
+
 
       {/* Первоначальная форма */}
       {initialForm && <InitialDataForm globalData={globalData} setGlobalData={setGlobalData} />}

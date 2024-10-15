@@ -4,14 +4,15 @@ import styles from '../css/CorrectWordsChoice.module.css';
 import Word from "./Word";
 
 export default function CorrectWordsChoice({ receivedInfo, updateInteractive, interactive }) {
-  const [data, setData] = useState({ task: receivedInfo.task, words: receivedInfo.words });
+  const [task, setTask] = useState({ task: receivedInfo.task });
   const [currentWord, setCurrentWord] = useState(null);
-  const [words, setWords] = useState([]);
+  const [words, setWords] = useState(receivedInfo.words ?? []);
+  const [error, setError] = useState('');
 
   const changeHandler = (event) => { //Меняем инфу в инпуте
     const { name, value } = event.target;
-    setData((prev) => ({ ...prev, [name]: value }));
-    updateInteractive({ ...interactive, receivedInfo: data });
+    setTask((prev) => ({ ...prev, [name]: value }));
+    updateInteractive({ ...interactive, receivedInfo: { ...task, wordsArr: words } });
   };
 
   const addNewWord = () => {
@@ -28,23 +29,26 @@ export default function CorrectWordsChoice({ receivedInfo, updateInteractive, in
   const deleteWord = (id) => {
     const newWord = words.filter(i => i.id !== id);
     setWords(() => newWord);
-    setCurrentWord(newWord[0] ?? null);    
+    setCurrentWord(newWord[0] ?? null);
   };
 
   const updateWord = (newObject) => {
+    const index = words.findIndex(item => item.id === newObject.id);
+
+    let newWords = null;
+    if (index !== -1) {
+      // Если объект с таким id существует, заменяем его
+      newWords = words.map((item, idx) => idx === index ? newObject : item);
+    } else {
+      // Если объект с таким id не найден, добавляем новый
+      newWords = [...words, newObject];
+    }
 
     setCurrentWord(newObject);
-    setWords((prevData) => {
-      const index = prevData.findIndex(item => item.id === newObject.id);
+    setWords(newWords);
 
-      if (index !== -1) {
-          // Если объект с таким id существует, заменяем его
-          return prevData.map((item, idx) => idx === index ? newObject : item);
-      } else {
-          // Если объект с таким id не найден, добавляем новый
-          return [...prevData, newObject];
-      }
-  });
+    updateInteractive({ ...interactive, receivedInfo: { ...task, words: newWords } });
+
   };
 
   return (
@@ -57,27 +61,25 @@ export default function CorrectWordsChoice({ receivedInfo, updateInteractive, in
           name="task"
           rows={5}
           onChange={changeHandler}
-          value={data.task}
+          value={task.task}
         ></textarea>
       </section>
 
 
       <section className={styles["words-wrapper"]}>
 
-      {words.length > 0 && (<div className={styles['table-names-block']}>
+        {words.length > 0 && (<div className={styles['table-names-block']}>
           <div>Слова: </div>
           <div>Правильность слова: </div>
         </div>)}
         <div className={styles["words-field"]}>
 
-
-
           {words.map((word, index) =>
-            <Word key={word.id} order={index} word={word} updateWord={updateWord} deleteWord={deleteWord}/>
+            <Word key={word.id} order={index} word={word} updateWord={updateWord} deleteWord={deleteWord} error={error} setError={setError} />
           )}
-          <div className={styles.buttons}>
+          {!error && <div className={styles.buttons}>
             <button className={styles["add-button"]} onClick={addNewWord}>Добавить слово</button>
-          </div>
+          </div>}
 
         </div>
       </section>
