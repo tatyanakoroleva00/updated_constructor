@@ -34,8 +34,6 @@ const StateTwo = ({ globalData, serverDataGot, setGlobalData, interactives, setI
       } 
       </div>
 
-
-
       {/* Первоначальная форма */}
       {initialForm && <InitialDataForm globalData={globalData} setGlobalData={setGlobalData} />}
 

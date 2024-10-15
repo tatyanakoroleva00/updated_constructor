@@ -17,7 +17,10 @@
 }
 .answers-wrapper {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+}
+.answer-wrapper {
+    width: 100%;
 }
 .answer-field, .question-field {
     width: 100%;
