@@ -32,7 +32,7 @@ export default function Word ({updateWord, deleteWord, word, order, error, setEr
         <label htmlFor="no">Нет</label>
         <input  type="radio" id="yes" name={word['word_name']} value="yes" checked={word.status === 'yes'} onChange={event => updateWord({...word, status : event.target.value})}/>
         <label htmlFor="yes">Да</label>
-        <button className={styles['delete-btn']} onClick={() => deleteWord(word['id'])}>Х</button>
+        <button className={styles['delete-btn']} onClick={() => deleteWord(word.id)}>Х</button>
       </div>
     </div>
     {error && <div style={{ color: 'red' }}>{error}</div>}

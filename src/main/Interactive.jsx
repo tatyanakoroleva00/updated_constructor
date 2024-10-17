@@ -25,7 +25,6 @@ const Interactive = ({ updateInteractive, deleteInteractive, interactive,  video
     };
   };
 
-
   return (
     <div className={`${currentInteractive !== interactive && styles['invisible']}`}>
       <div><b>Интерактив: {interactive['interactive_name']}</b></div>

@@ -11,8 +11,8 @@ export default function CorrectWordsChoice({ receivedInfo, updateInteractive, in
 
   const changeHandler = (event) => { //Меняем инфу в инпуте
     const { name, value } = event.target;
+    updateInteractive({ ...interactive, receivedInfo: { task : event.target.value, words : words } });
     setTask((prev) => ({ ...prev, [name]: value }));
-    updateInteractive({ ...interactive, receivedInfo: { ...task, wordsArr: words } });
   };
 
   const addNewWord = () => {
@@ -28,8 +28,12 @@ export default function CorrectWordsChoice({ receivedInfo, updateInteractive, in
 
   const deleteWord = (id) => {
     const newWord = words.filter(i => i.id !== id);
+
+    updateInteractive({ ...interactive, receivedInfo: { ...task, words: newWord } });
+
     setWords(() => newWord);
-    setCurrentWord(newWord[0] ?? null);
+    // setCurrentWord(newWord[0] ?? null);
+
   };
 
   const updateWord = (newObject) => {
@@ -44,11 +48,10 @@ export default function CorrectWordsChoice({ receivedInfo, updateInteractive, in
       newWords = [...words, newObject];
     }
 
-    setCurrentWord(newObject);
-    setWords(newWords);
-
     updateInteractive({ ...interactive, receivedInfo: { ...task, words: newWords } });
 
+    // setCurrentWord(newObject);
+    setWords(newWords);
   };
 
   return (

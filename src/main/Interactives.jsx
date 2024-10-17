@@ -15,7 +15,7 @@ const Interactives = ({interactives, setInteractives}) => {
             interactive_name: interactiveName,
             interactive_type: '',
             time_code: '',
-            receivedInfo: {},
+            receivedInfo: [],
         };
         setInteractives(prev => [...prev, interactive]);
         setCurrentInteractive(interactive);

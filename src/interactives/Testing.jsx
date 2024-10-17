@@ -1,12 +1,10 @@
 import React from "react";
 import QuestionCard from "./QuestionCard";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styles from '../css/Testing.module.css';
 
 export default function Testing({ interactive, updateInteractive, receivedInfo }) {
   const [questions, setQuestions] = useState(receivedInfo.questions ?? []);
-
-  console.log('questions', questions);
 
   // Добавить новый вопрос
   const addNewQuestion = () => {
@@ -21,6 +19,9 @@ export default function Testing({ interactive, updateInteractive, receivedInfo }
   // Удалить вопрос
   const deleteQuestion = (id) => {
     const newQuestion = questions.filter(i => i.id !== id);
+
+    updateInteractive({...interactive, receivedInfo: {'questions': newQuestion}}); //here
+
     setQuestions(() => newQuestion);
   };
 
@@ -37,8 +38,8 @@ export default function Testing({ interactive, updateInteractive, receivedInfo }
       newQuestions = [...questions, newObject];
     }
 
+    updateInteractive({...interactive, receivedInfo: {'questions': newQuestions}});
     setQuestions(newQuestions);
-    updateInteractive({...interactive, receivedInfo: questions});
   };
 
   return (
@@ -46,7 +47,7 @@ export default function Testing({ interactive, updateInteractive, receivedInfo }
       {questions.map((question, index) => (
 
         <div key={question.id}>
-          <QuestionCard order={index} question={question} updateQuestion={updateQuestion} deleteQuestion={deleteQuestion} questions={questions}/>
+          <QuestionCard order={index} question={question} updateQuestion={updateQuestion} deleteQuestion={deleteQuestion}/>
         </div>
       ))}
 
