@@ -87,14 +87,32 @@ const StateOne = ({ setServerDataGot, setSwitchStates, setGlobalData, setPlayBtn
     }
   };
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(iFrame).then(() => {
+  // const copyToClipboard = () => {
+
+
+  //   navigator.clipboard.writeText(iFrame).then(() => {
+
+
+  //     setIsCopied(true);
+  //     setTimeout(() => setIsCopied(false), 2000);
+
+
+  //   }).catch((err) => {
+  //     console.error('Ошибка при копировании: ', err);
+  //   })
+  // };
+
+
+  async function copyToClipboard() {
+    try {
+      await navigator.clipboard.writeText(iFrame);
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000);
-    }).catch((err) => {
-      console.error('Ошибка при копировании: ', err);
-    })
-  };
+
+    } catch (e) {
+      console.error('Ошибка при копировании: ', e);
+    }
+  }
 
   return (
     <div>

@@ -52,7 +52,7 @@ const Interactives = ({interactives, setInteractives}) => {
             <div>
                 <div>
                     <button className={styles['add-button']} onClick={() => setIsModalOpen(true)}>Добавить интерактив</button>
-                    <Modal_Interactives isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={addNewInteractive} header="Добавить новый интерактив" message="Вы создаете новый интерактив. Несохраненные данные будут потеряны" answer1="Подтвердить" answer2="Сбросить" />
+                    <Modal_Interactives isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={addNewInteractive} header="Добавить новый интерактив" message="Вы создаете новый интерактив. Несохраненные данные будут потеряны" answer1="Подтвердить" answer2="Отмена" />
                 </div>
 
                 <div className={styles['buttons-row']}>

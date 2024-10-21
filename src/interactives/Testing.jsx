@@ -5,6 +5,7 @@ import styles from '../css/Testing.module.css';
 
 export default function Testing({ interactive, updateInteractive, receivedInfo }) {
   const [questions, setQuestions] = useState(receivedInfo.questions ?? []);
+  // const [errors, setErrors] = useState([]);
 
   // Добавить новый вопрос
   const addNewQuestion = () => {
@@ -14,8 +15,11 @@ export default function Testing({ interactive, updateInteractive, receivedInfo }
       'question_name': '',
     };
     setQuestions(prev => [...prev, newQuestion]);
+    // setErrors(prev => [...prev, newQuestion.id])
   };
 
+
+  console.log(questions, 'questions');
   // Удалить вопрос
   const deleteQuestion = (id) => {
     const newQuestion = questions.filter(i => i.id !== id);
@@ -42,17 +46,25 @@ export default function Testing({ interactive, updateInteractive, receivedInfo }
     setQuestions(newQuestions);
   };
 
+  // const updateErrorsArr = (newArr) => {
+  //   setErrors(newArr);
+  // };
+
   return (
     <div className={styles.question}>
       {questions.map((question, index) => (
 
         <div key={question.id}>
+          {/* <QuestionCard error={errors} updateErrorsArr={updateErrorsArr} setErrors={setErrors} order={index} question={question} updateQuestion={updateQuestion} deleteQuestion={deleteQuestion}/> */}
+
+
           <QuestionCard order={index} question={question} updateQuestion={updateQuestion} deleteQuestion={deleteQuestion}/>
         </div>
       ))}
 
-      <div className={styles['btns-wrapper']}>
-        <button onClick={addNewQuestion}>Добавить вопрос</button>
+    <div className={styles['btns-wrapper']}>
+    {/* {errors.length === 0 && <button onClick={addNewQuestion}>Добавить вопрос</button>} */}
+    {<button onClick={addNewQuestion}>Добавить вопрос</button>}
       </div>
     </div>
   );

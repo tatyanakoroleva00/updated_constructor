@@ -9,6 +9,7 @@ export default function CorrectWordsChoice({ receivedInfo, updateInteractive, in
   const [words, setWords] = useState(receivedInfo.words ?? []);
   const [error, setError] = useState('');
 
+
   const changeHandler = (event) => { //Меняем инфу в инпуте
     const { name, value } = event.target;
     updateInteractive({ ...interactive, receivedInfo: { task : event.target.value, words : words } });

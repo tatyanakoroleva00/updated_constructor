@@ -4,8 +4,7 @@ import Answer from './Answer';
 
 export default function QuestionCard({ order, deleteQuestion, updateQuestion, question }) {
   const [answersArr, setAnswersArr] = useState(question.answers ?? []);
-
-  const [errors, setErrors] = useState([]);
+  // const [errorIds, setErrorIds] = useState([]);
 
   const addAnswer = () => {
 
@@ -20,6 +19,9 @@ export default function QuestionCard({ order, deleteQuestion, updateQuestion, qu
 
  const deleteAnswer = (newObject) => {
   const newAnswer = answersArr.filter(i => i.id !== newObject);
+
+  // const newErrorsArr = error.filter(i => i.id !== newObject);
+  // updateErrorsArr(newErrorsArr);
   updateQuestion({...question, 'answers': newAnswer}); //here
   setAnswersArr(() => newAnswer);
  };
@@ -42,29 +44,38 @@ export default function QuestionCard({ order, deleteQuestion, updateQuestion, qu
   setAnswersArr(newAnswers);
  };
 
- const getErrors = (errorObject) => {
-  const index = errors.findIndex(item => item.id === errorObject.id);
-  if(errorObject.error === true) {
-    let newError = null;
-    if(index !== -1) {
-    newError = errors.map((item, idx) => idx === index ? errorObject : item);
-    }
+//  const getErrors = (errorObject) => {
+//   const index = error.findIndex(item => item.id === errorObject.id);
+//   if(errorObject.error === true) {
+//     let newError = null;
+//     if(index !== -1) {
+//     newError = error.map((item, idx) => idx === index ? errorObject : item);
+//     }
 
-    else {
-      // Если объект с таким id не найден, добавляем новый
-      newError = [...errors, errorObject];
-    }
-    setErrors(newError);
-  } 
+//     else {
+//       // Если объект с таким id не найден, добавляем новый
+//       newError = [...error, errorObject];
+//     }
+//     updateErrorsArr([...error, newError]);
+//     setErrors(newError);
+//   } 
   
-  if(errorObject.error === false) {
-    if(index !== -1) {
-      errors.splice(index, 1);
-      setErrors(errors);
-    }
-  } 
- };
-  console.log('errors', errors);
+//   if(errorObject.error === false) {
+//     if(index !== -1) {
+//       let newError = error;
+//       newError.splice(index, 1);
+//       updateErrorsArr([...error, newError]);
+//       setErrors(error);
+//     }
+//   }
+//  };
+
+
+//  const addErrorIds = (id) => {
+//   setErrorIds(prev => [...prev, id]);
+//  };
+ 
+ 
   return (
     <div className={styles['question-block']}>
 
@@ -78,12 +89,15 @@ export default function QuestionCard({ order, deleteQuestion, updateQuestion, qu
       </div>
 
       {answersArr.map((answer, index) => (
-        <Answer key={answer.id} order={index} answer={answer} deleteAnswer={deleteAnswer} updateAnswer={updateAnswer} getErrors={getErrors}/>
+        <Answer key={answer.id} order={index} answer={answer} deleteAnswer={deleteAnswer} updateAnswer={updateAnswer}/>
       ) )}
-
-      {errors.length === 0 && <div >
+{/* 
+      {error.length === 0 && <div >
         <button onClick={addAnswer}>+</button>
-      </div>}
+      </div>} */}
+      <div >
+        <button onClick={addAnswer}>+</button>
+      </div>
     </div>
   )
 }

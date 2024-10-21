@@ -7,13 +7,13 @@
 }
 .question-block {
     border-bottom: 1px solid black;
-    padding-top: 1rem;
+    padding-top: 1rem;    
+    padding-bottom: 1rem;
 }
 .question-wrapper, .answer-wrapper {
     display: flex;
     align-items: center;
-    gap: 2rem;
-    margin-bottom: 1rem;
+    gap: 1rem;
 }
 .answers-wrapper {
     display: flex;

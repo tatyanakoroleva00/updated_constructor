@@ -1,10 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from '../css/Testing.module.css'
 
-const Answer = ({ answer, order, updateAnswer, deleteAnswer, getErrors}) => {
-    const [answerName, setAnswerName] = useState('');
-    const [error, setError] = useState(false);
-    const [errorMsg, setErrorMsg] = ['Пустое поле'];
+const Answer = ({ answer, order, updateAnswer, deleteAnswer}) => {
+    // const [answerName, setAnswerName] = useState('');
+    // const [error, setError] = useState(false);
+    // const [errorMsg, setErrorMsg] = ['Пустое поле'];
+
+    // useEffect(() => {
+    //     if(answerName === '') {
+    //         addErrorIds([answer.id]);
+    //     }
+    // }, [answerName])
 
     const changeHandler = (event) => {
         const {name, value, checked} = event.target;
@@ -14,8 +20,8 @@ const Answer = ({ answer, order, updateAnswer, deleteAnswer, getErrors}) => {
         }
         else {
             updateAnswer({...answer, [name] : value});
-            setAnswerName(value);
-            (value.trim() === '') ? getErrors({'id' : answer.id, 'error' : true}) : getErrors({'id' : answer.id, 'error' : false});
+            // setAnswerName(value);
+            // (value.trim() === '') ? getErrors({'id' : answer.id, 'error' : true}) : getErrors({'id' : answer.id, 'error' : false});
         }
     };
 
@@ -31,7 +37,7 @@ const Answer = ({ answer, order, updateAnswer, deleteAnswer, getErrors}) => {
             </div>
             
         </div>
-        {answerName === '' && <div style={{ color: 'red' }}>{errorMsg}</div>}
+        {/* {answerName === '' && <div style={{ color: 'red' }}>{errorMsg}</div>} */}
         </>
     )
 }
