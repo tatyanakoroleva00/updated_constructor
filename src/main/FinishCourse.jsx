@@ -3,6 +3,8 @@ import styles from '../css/Buttons.module.css';
 
 const FinishCourse = ({globalData, serverDataGot, setFinishBtnClicked, interactives}) => {
 
+
+
   const finishCourseHandler = () => { //Получаем все данные, полученные от пользователя и отправляем их на сервер
     let finalData = {...globalData, interactives};
 

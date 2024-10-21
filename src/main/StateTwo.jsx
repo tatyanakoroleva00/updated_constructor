@@ -17,6 +17,7 @@ const StateTwo = ({ globalData, serverDataGot, setGlobalData, interactives, setI
   };
 
   return (
+    <>
     <div className={`${finishBtnClicked && styles.hidden}`}>
       {/* Заголовок проекта */}
       {globalData['heading'] && <h1 className={styles.title}>{globalData['heading']}</h1>}
@@ -42,11 +43,13 @@ const StateTwo = ({ globalData, serverDataGot, setGlobalData, interactives, setI
         <Interactives setInteractives={setInteractives} interactives={interactives} globalData={globalData} setGlobalData={setGlobalData} />
       </div>}
 
-      {/* После завершения проекта - сообщение */}
-      {finishBtnClicked && <div>
-        <p>{serverDataGot ? 'Изменения сохранены' : 'Проект создан'}</p>
-      </div>}
+      
     </div>
+    {/* После завершения проекта - сообщение */}
+    {finishBtnClicked && <div >
+      <p>{serverDataGot ? 'Изменения сохранены' : 'Проект создан'}</p>
+    </div>}
+    </>
   );
 };
 
