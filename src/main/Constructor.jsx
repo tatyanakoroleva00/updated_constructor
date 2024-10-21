@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styles from "../css/Constructor.module.css";
 import StateOne from "./StateOne";
 import StateTwo from "./StateTwo";
-import Interactives from "./Interactives";
 
 const Constructor = ({ playBtnIsClicked, setPlayBtnIsClicked, setVideoCourseId }) => {
   const [globalData, setGlobalData] = useState({
@@ -15,9 +14,6 @@ const Constructor = ({ playBtnIsClicked, setPlayBtnIsClicked, setVideoCourseId }
   const [switchStates, setSwitchStates] = useState(false);
   const [serverDataGot, setServerDataGot] = useState(false);
   const [interactives, setInteractives] = useState([]);
-
-
-  console.log(globalData, 'gb');
 
   return (
     <div className={styles["constructor-wrapper"]}>

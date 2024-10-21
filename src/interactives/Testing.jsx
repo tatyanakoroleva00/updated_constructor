@@ -18,8 +18,6 @@ export default function Testing({ interactive, updateInteractive, receivedInfo }
     // setErrors(prev => [...prev, newQuestion.id])
   };
 
-
-  console.log(questions, 'questions');
   // Удалить вопрос
   const deleteQuestion = (id) => {
     const newQuestion = questions.filter(i => i.id !== id);
